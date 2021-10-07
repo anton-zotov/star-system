@@ -1,6 +1,6 @@
 import Victor from 'victor';
 import { Body } from './body';
-import { line } from './canvas-utlis';
+import { line, RenderingContext2D } from './canvas-utlis';
 
 export class Ray {
     private v: Victor;
@@ -10,9 +10,9 @@ export class Ray {
         this.v.normalize();
     }
 
-    public draw(ctx: CanvasRenderingContext2D): void {
+    public draw(ctx: RenderingContext2D, dx = 0, dy = 0): void {
         const end = this.v.clone().multiply(new Victor(1000, 1000));
-        line(ctx, this.cx, this.cy, this.cx + end.x, this.cy + end.y, '#FFF');
+        line(ctx, this.cx - dx, this.cy - dy, this.cx + end.x - dx, this.cy + end.y - dy, '#FFF5', 3);
     }
 
     public doesIntersect(planet: Body) {

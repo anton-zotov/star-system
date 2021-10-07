@@ -1,20 +1,24 @@
 import { Star } from './star';
 import './style.css';
 import { Planet } from './planet';
-import { clearCanvas, createCanvas } from './canvas-utlis';
+import { clearCanvas, createMainCanvas } from './canvas-utlis';
 
-const canvas = createCanvas();
-const ctx = canvas.getContext('2d');
+const { canvas, ctx } = createMainCanvas();
 clearCanvas(canvas);
 
-// ctx.clearRect(0, 0, canvas.width, canvas.height)
-// ctx.globalCompositeOperation = 'source-atop';
+const star1 = new Star(100, 100);
+star1.draw(ctx);
 
-const star = new Star(100, 100);
-star.draw(ctx);
+const star2 = new Star(300, 100);
+star2.draw(ctx);
+
+const start = [star1, star2];
 
 const venus = new Planet(300, 250, 30);
-venus.draw(ctx, [star], []);
+venus.draw(ctx, start, []);
 
-const earth = new Planet(500, 500, 50);
-earth.draw(ctx, [star], [venus, earth], true);
+const earth = new Planet(230, 400, 50);
+earth.draw(ctx, start, [venus, earth]);
+
+const mars = new Planet(460, 500, 100);
+mars.draw(ctx, start, [venus, earth, mars]);
