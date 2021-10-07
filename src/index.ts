@@ -4,21 +4,30 @@ import { Planet } from './planet';
 import { clearCanvas, createMainCanvas } from './canvas-utlis';
 
 const { canvas, ctx } = createMainCanvas();
-clearCanvas(canvas);
 
 const star1 = new Star(100, 100);
-star1.draw(ctx);
-
 const star2 = new Star(300, 100);
-star2.draw(ctx);
-
-const start = [star1, star2];
+const start = [star2];
 
 const venus = new Planet(300, 250, 30);
-venus.draw(ctx, start, []);
-
 const earth = new Planet(230, 400, 50);
-earth.draw(ctx, start, [venus, earth]);
-
 const mars = new Planet(460, 500, 100);
-mars.draw(ctx, start, [venus, earth, mars]);
+const planets = [venus, earth, mars];
+
+function step(dt: number) {
+    clearCanvas(canvas);
+
+    star1.draw(ctx);
+    star2.draw(ctx);
+
+    venus.draw(ctx, start, planets);
+    earth.draw(ctx, start, planets);
+    mars.draw(ctx, start, planets);
+
+    star2.x += 0.0003 * dt;
+    star2.y += 0.0002 * dt;
+
+    requestAnimationFrame(step);
+}
+
+requestAnimationFrame(step);

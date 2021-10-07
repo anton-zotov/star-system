@@ -4,6 +4,6 @@ export class Star {
     constructor(public x: number, public y: number) {}
 
     public draw(ctx: RenderingContext2D): void {
-        circle(ctx, this.x, this.y, 50, '#ff0');
+        circle(ctx, this.x, this.y, 10, '#ff0');
     }
 }
